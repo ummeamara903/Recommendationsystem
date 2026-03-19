@@ -11,3 +11,12 @@ __pycache__/
 .DS_Store
 # ML models
 *.pkl
+# Ignore dataset folder
+fashionscience/dataset/
+
+# Ignore mapping file
+fashionscience/mapping.py
+
+# Ignore ML models
+*.pkl
+

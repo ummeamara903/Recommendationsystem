@@ -21,18 +21,18 @@ dataset['accessory'] = dataset['accessory'].apply(lambda x: [i.strip() for i in 
 dataset['shoes'] = dataset['shoes'].apply(lambda x: [i.strip() for i in str(x).split('+')])
 dataset['color'] = dataset['color'].apply(lambda x: [i.strip() for i in str(x).split('+')])
 
-# ✅ Encode categorical features
+#  Encode categorical features
 encoder = OneHotEncoder(handle_unknown='ignore')
 X_cat = encoder.fit_transform(dataset[categorical_cols]).toarray()
 
-# ✅ Scale budget
+#  Scale budget
 scaler = MinMaxScaler()
 budget_scaled = scaler.fit_transform(dataset[['budget']])
 
 # Combine features
 X_features = np.hstack((X_cat, budget_scaled))
 
-# ✅ Multi-label encoding for ALL targets
+# Multi-label encoding for ALL targets
 mlb_product = MultiLabelBinarizer()
 Y_product = mlb_product.fit_transform(dataset['product'])
 
@@ -45,7 +45,7 @@ Y_shoes = mlb_shoes.fit_transform(dataset['shoes'])
 mlb_color = MultiLabelBinarizer()
 Y_color = mlb_color.fit_transform(dataset['color'])
 
-# ✅ Train models
+# Train models
 rf_product = RandomForestClassifier(n_estimators=200, random_state=42)
 rf_product.fit(X_features, Y_product)
 
@@ -58,7 +58,7 @@ rf_shoes.fit(X_features, Y_shoes)
 rf_color = RandomForestClassifier(n_estimators=200, random_state=42)
 rf_color.fit(X_features, Y_color)
 
-# ✅ Similarity fallback (KNN)
+# Similarity fallback (KNN)
 knn = NearestNeighbors(n_neighbors=1, metric='cosine')
 knn.fit(X_features)
 
@@ -66,7 +66,7 @@ knn.fit(X_features)
 model_dir = "models"
 os.makedirs(model_dir, exist_ok=True)
 
-# ✅ Save everything (VERY IMPORTANT FOR API)
+# Save everything (VERY IMPORTANT FOR API)
 joblib.dump(rf_product, os.path.join(model_dir, "product_model.pkl"))
 joblib.dump(rf_accessory, os.path.join(model_dir, "accessory_model.pkl"))
 joblib.dump(rf_shoes, os.path.join(model_dir, "shoes_model.pkl"))
@@ -82,4 +82,4 @@ joblib.dump(mlb_color, os.path.join(model_dir, "mlb_color.pkl"))
 
 joblib.dump(knn, os.path.join(model_dir, "knn_model.pkl"))
 
-print("✅ All models and encoders saved successfully!")
+print("All models and encoders saved successfully!")
