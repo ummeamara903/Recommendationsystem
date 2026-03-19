@@ -1,0 +1,23 @@
+What is Feature Engineering (In Your FYP)?
+Feature engineering = creating meaningful columns from raw data so the system can make intelligent decisions.
+
+Cosine similarity :
+Cosine similarity helps us recommend similar products by comparing feature vectors and finding items with the most similar characteristics, without training a predictive model.
+
+MinMaxScaler:
+It normalizes numbers between 0 and 1.
+Example:
+                      After scaling:
+| budget |            | budget |
+| ------ |            | ------ |
+| 1000   |            | 0.0    |
+| 5000   |            | 0.44   |
+| 10000  |            | 1.0    |    
+
+Formula used for min max scaling:
+                         Xscaled​=​X−Xmin / ​​Xmax​−Xmin
+Why we do this?
+Because machine learning models work better when all numbers are in similar range.
+        ----------------------------------------------------------
+np.hstack means:
+Horizontal Stack.It combines arrays side by side.
